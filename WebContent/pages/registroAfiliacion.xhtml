@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head>
+    <title>Formulario de Registro de Afiliación</title>
+</h:head>
+<h:body>
+    <h:form id="registroAfiliacionForm">
+		<p:panelGrid columns="3" >
+    
+        <h2>Formulario de Registro de Afiliación</h2>
+
+		<h:outputLabel for="tipoDocumento">Tipo de Documento:</h:outputLabel>
+		<h:selectOneMenu id="tipoDocumento" value="#{personaBean.persona.tipoDocumento}">
+	        <f:selectItem itemLabel="Seleccionar" itemValue="" />
+            <f:selectItem itemLabel="Cédula (CC)" itemValue="CC" />
+            <f:selectItem itemLabel="Cédula de Extranjería (CE)" itemValue="CE" />
+            <f:selectItem itemLabel="Registro Civil (RC)" itemValue="RC" />
+            <f:selectItem itemLabel="Tarjeta de Identidad (TI)" itemValue="TI" />
+		    <f:ajax listener="#{personaBean.onTipoDocumentoChange}" execute="@this" render="otherComponentsToUpdate" />
+		</h:selectOneMenu>
+		<h:message for="tipoDocumento" />
+
+
+        <h:outputLabel for="numeroDocumento">Número de Documento:</h:outputLabel>
+        <h:inputText id="numeroDocumento" value="#{personaBean.persona.numeroDocumento}" />
+        <h:message for="numeroDocumento" />
+
+        <h:outputLabel for="primerNombre">Primer Nombre:</h:outputLabel>
+        <h:inputText id="primerNombre" value="#{personaBean.persona.primerNombre}" />
+        <h:message for="primerNombre" />
+
+        <h:outputLabel for="segundoNombre">Segundo Nombre:</h:outputLabel>
+        <h:inputText id="segundoNombre" value="#{personaBean.persona.segundoNombre}" />
+        <h:message for="segundoNombre" />
+        
+        <h:outputLabel for="primerApellido">Primer Apellido:</h:outputLabel>
+        <h:inputText id="primerApellido" value="#{personaBean.persona.primerApellido}" />
+        <h:message for="primerApellido" />
+
+        <h:outputLabel for="segundoApellido">Segundo Apellido:</h:outputLabel>
+        <h:inputText id="segundoApellido" value="#{personaBean.persona.segundoApellido}" />
+        <h:message for="segundoApellido" />
+        
+        <!-- Campos de afiliación a salud y pensión -->
+        <h:outputLabel for="administradoraSalud">Administradora de Salud:</h:outputLabel>
+        <h:selectOneMenu id="administradoraSalud" value="#{personaBean.persona.administradoraSalud}">
+            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+            <f:selectItem itemLabel="Sanitas EPS" itemValue="EPS001" />
+            <f:selectItem itemLabel="Sura EPS" itemValue="EPS002" />
+            <f:selectItem itemLabel="Coomeva" itemValue="EPS003" />
+            <f:selectItem itemLabel="Medimas" itemValue="EPS004" />
+            
+        </h:selectOneMenu>
+        <h:message for="administradoraSalud" />
+
+        <h:outputLabel for="fechaAfiliacionSalud">Fecha de Afiliación a Salud:</h:outputLabel>
+        <h:inputText id="fechaAfiliacionSalud" value="#{personaBean.persona.fechaAfiliacionSalud}">
+            <f:convertDateTime pattern="yyyy-MM-dd" />
+        </h:inputText>
+        <h:message for="fechaAfiliacionSalud" />
+
+        <!-- Campos de afiliación a pensión -->
+        <h:outputLabel for="administradoraPension">Administradora de Pensión:</h:outputLabel>
+        <h:selectOneMenu id="administradoraPension" value="#{personaBean.persona.administradoraPension}">
+            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+            <f:selectItem itemLabel="Protección" itemValue="AFP001" />
+            <f:selectItem itemLabel="Porvenir" itemValue="AFP002" />
+        </h:selectOneMenu>
+        <h:message for="administradoraPension" />
+
+        <h:outputLabel for="fechaAfiliacionPension">Fecha de Afiliación a Pensión:</h:outputLabel>
+        <h:inputText id="fechaAfiliacionPension" value="#{personaBean.persona.fechaAfiliacionPension}">
+            <f:convertDateTime pattern="yyyy-MM-dd" />
+        </h:inputText>
+        <h:message for="fechaAfiliacionPension" />
+        
+		</p:panelGrid>
+
+        <!-- Botón de envío del formulario -->
+        <h:commandButton value="Registrar Afiliación" action="#{personaBean.registrarPersona}" />
+
+        <!-- Mensajes de validación y resultado -->
+        <h:messages globalOnly="true" layout="table" />
+
+    </h:form>
+</h:body>
+</html>
